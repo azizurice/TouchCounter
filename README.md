@@ -20,23 +20,23 @@ To develop this app, I have used the following components:
 
 ### Flow diagram of the app
 
-<img src="https://github.com/azizurice/TouchCounter/blob/master/TouchCounter/doc/SchematicDiagram.png" />
+<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/SchematicDiagram.png" />
 
 ### Project Structure in Android Studio
 
-<img src="https://github.com/azizurice/TouchCounter/blob/master/TouchCounter/doc/ProjectStructure.png" />
+<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/ProjectStructure.png" />
 
 
 ### Few Screen Shots
 Login Page:
-<img src="https://github.com/azizurice/TouchCounter/blob/master/TouchCounter/doc/LoginPage.png" />
+<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/LoginPage.png" />
 
 TouchCounterActivity:
 
-<img src="https://github.com/azizurice/TouchCounter/blob/master/TouchCounter/doc/MainActivity.png" />
+<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/MainActivity.png" />
 
 Home Widget:
-<img src="https://github.com/azizurice/TouchCounter/blob/master/TouchCounter/doc/HomeWidget.png" />
+<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/HomeWidget.png" />
 
 
 Suppose, we want to show a list of Movies and their brief wiki details from in one of our apps. We have different kinds of android devices( different screen sizes). How can we arrange the GUIs. We can solve this problem using Fragment. How? We can use two fragments: one for displaying movie names and one for displaying their details. In Android Phone, we will inflate(insert) MoviesFragment first, and when user clicks on any particular movie name, it will show the details fragment (WikiDetailsFragment). However, for large screen sizes devices or phone in landscape mode, we can display both fragments together, otherwise most of the spaces will remain blank(which is not good from user experience perspective).
