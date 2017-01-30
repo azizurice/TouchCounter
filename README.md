@@ -1,10 +1,10 @@
 ## App that counts touches and updates home widget
 
 In this app, we will see how we can count touches per second. The touches per second is calculated based on how many
-touches happen in last one second. It also shows how to add a feature called home widget and update this widget
+touches happen in last one second. It also shows how to add a feature called home widget and updates this widget
 periodically (especially every 100ms - which is not a good idea in terms of battery drainage). However, for testing
 purpose, I have implemented it here. In addition, using OAuth2 protocol, a login feature is added where the backend service is supported by
-[Firebase](https://www.firebase.com/) and Twitter has been used one service provider.
+[Firebase](https://www.firebase.com/) and Twitter has been used as one service provider.
 
 
 
