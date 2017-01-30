@@ -53,7 +53,7 @@ The app can be refactored based on MVP(Model View Presention) design pattern in 
  architecture can be considered a good choice for a bigger app.
 
 
- ### Help Line:
+### Help Line:
 
  You can download the APK file from [here](https://drive.google.com/drive/u/0/folders/0B-SrBva2FSA9QVdaWmdHQlUzWWc). Install it and play with
  this nice app and see the Home widget.
