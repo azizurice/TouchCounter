@@ -278,11 +278,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void onAuthSuccess(FirebaseUser user) {
         String username = usernameFromEmail(user.getEmail());
-
         // Write new user
         writeNewUser(user.getUid(), username, user.getEmail());
-
-        // Go to MainActivity
         startActivity(new Intent(LoginActivity.this, TouchCountActivity.class));
         finish();
     }
