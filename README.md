@@ -36,12 +36,12 @@ Login Page:
 TouchCounterActivity:
 
 
-<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/MainActivity.png" width="800px" height="600px" />
+<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/MainActivity.png" width="400px" height="600px" />
 
 Home Widget:
 
 
-<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/HomeWidget.png" width="800px" height="600px" />
+<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/HomeWidget.png" width="400px" height="600px" />
 
 
 
