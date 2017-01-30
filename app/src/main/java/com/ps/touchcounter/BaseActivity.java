@@ -10,16 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //   FacebookSdk.sdkInitialize(getApplicationContext());
-        //  AppEventsLogger.activateApp(this);
-
-        //setContentView(R.layout.activity_home);
-
 
     }
+
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);

@@ -12,23 +12,12 @@ import com.ps.touchcounter.BaseActivity;
 import com.ps.touchcounter.R;
 import com.ps.touchcounter.services.UpdateActivityService;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 public class TouchCountActivity extends BaseActivity {
     TextView mTextView;
     public static int nTouch = 0;
-    String msg;
+    String msgTouchesIn100ms;
+    String msgTouchRate;
     private ResponseReceiver receiver;
-    public static Map<Long, Integer> touchesInIntervals = new LinkedHashMap<Long, Integer>() {
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        protected boolean removeEldestEntry(Map.Entry<Long, Integer> eldest) {
-            return this.size() > 10;
-        }
-    };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,42 +32,36 @@ public class TouchCountActivity extends BaseActivity {
 
 
         mTextView = (TextView) findViewById(R.id.touchId);
-        msg = "Touch Rate per second :";
+        msgTouchesIn100ms ="Touches in 100ms :";
+        msgTouchRate = "Touch Rate per second :";
 
         // Start the service that will continusly calculate touches per second from
         // the queue like map (10 entries) becasue 10 times update per second.
         Intent msgIntent = new Intent(this, UpdateActivityService.class);
-        msgIntent.putExtra(UpdateActivityService.PARAM_IN_MSG, msg);
+        msgIntent.putExtra(UpdateActivityService.PARAM_IN_MSG, msgTouchRate);
         startService(msgIntent);
 
-      //  scheduleAlarm();
     }
-
-
-//    public void scheduleAlarm() {
-//        Intent intent = new Intent(getApplicationContext(), TouchCounterWidget.class);
-//        // Create a PendingIntent to be triggered when the alarm goes off
-//        final PendingIntent pIntent = PendingIntent.getBroadcast(this, TouchCounterWidget.REQUEST_CODE,
-//                intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        long firstMillis = System.currentTimeMillis(); // alarm is set right away
-//        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-//        alarm.setRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
-//                1000, pIntent);  // force it delayed 1 minute or 60000ms
-//
-//
-//    }
 
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                nTouch++;
-                mTextView.setText(msg + String.valueOf(nTouch) + "  " + event.getEventTime());
+                mTextView.setText(msgTouchesIn100ms + " :" + String.valueOf(updateTouch(1)) + " Touch time :" + event.getEventTime());
 
 
         }
         return false;
+    }
+
+    synchronized public static int updateTouch(int flag){
+        if(flag==1 ) {
+            nTouch++;
+        } else if (flag==0){
+            nTouch=0;
+        }
+        return nTouch;
     }
 
     public class ResponseReceiver extends BroadcastReceiver {
@@ -89,7 +72,10 @@ public class TouchCountActivity extends BaseActivity {
         public void onReceive(Context context, Intent intent) {
             TextView mResult = (TextView) findViewById(R.id.resultViewId);
             String text = intent.getStringExtra(UpdateActivityService.PARAM_OUT_MSG);
-            mResult.setText(text);
-        }
+            mResult.setText(msgTouchRate+text);
+            if (Integer.parseInt(text)==0) {
+                mTextView.setText(msgTouchesIn100ms + " :0" + " Touch time :");
+            }
+          }
     }
 }

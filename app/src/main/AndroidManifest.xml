@@ -40,11 +40,6 @@
         <service
             android:name=".widgets.TouchCounterWidget$AppWidgetService"
             android:exported="false">
-            <!--
-            <intent-filter>
-                <action android:name="com.ps.touchcounter.widgets.action.UPDATE_TOUCH_RATE"/>
-            </intent-filter>
-            -->
         </service>
     </application>
 

@@ -38,7 +38,7 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import io.fabric.sdk.android.Fabric;
 
-public class LoginActivity extends BaseActivity implements  View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = LoginActivity.class.getSimpleName();
     private static final int RC_SIGN_IN = 9001;
 
@@ -46,16 +46,12 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    //private CallbackManager mCallbackManager;
 
     // Custom user login
-    private ImageView mAppLogo;
     private EditText mEmailField;
     private EditText mPasswordField;
     private Button mSignInButton;
     private Button mSignUpButton;
-    private SignInButton mGooglePlusButton;
-    //private Button mTwitterButton;
     TwitterLoginButton mTwitterButton;
     private String socialFlag = "Twitter";
 
@@ -67,7 +63,7 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mMainContainer = (ViewGroup)findViewById(R.id.main_container);
+        mMainContainer = (ViewGroup) findViewById(R.id.main_container);
         signInContainer = (LinearLayout) findViewById(R.id.signIn_container);
         signUpContainer = (LinearLayout) findViewById(R.id.signUp_container);
 
@@ -88,7 +84,7 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
         Fabric.with(this, new Twitter(authConfig));
 
 
-      // Twitter Button
+        // Twitter Button
         signInContainer.addView(layoutInflater.inflate(R.layout.fragment_twitter_login, mMainContainer, false));
         mTwitterButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
 
@@ -118,7 +114,6 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
         // [END auth_state_listener]
 
 
-
         // Click listeners
         mSignInButton.setOnClickListener(this);
         mSignUpButton.setOnClickListener(this);
@@ -138,7 +133,7 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
             }
         });
         // [END initialize_twitter_login]
-   }
+    }
 
 
     @Override
@@ -151,7 +146,7 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
         }
     }
 
-    ////////////////////////
+
     @Override
     public void onStop() {
         super.onStop();
@@ -162,17 +157,12 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
     // [END on_stop_remove_listener]
 
 
-
-
-
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG," Result has come back");
-        if (socialFlag.equalsIgnoreCase("Twitter")){
-            Log.d(TAG," Result has come back :"+ socialFlag);
+        Log.d(TAG, " Result has come back");
+        if (socialFlag.equalsIgnoreCase("Twitter")) {
+            Log.d(TAG, " Result has come back :" + socialFlag);
             mTwitterButton.onActivityResult(requestCode, resultCode, data);  // Twitter
         }
     }
@@ -219,7 +209,6 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
     }
 
 
-
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
@@ -233,10 +222,8 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
         }
     }
 
-    ////////////////////////////////////////////
 
     private void signIn() {
-        Log.d(TAG, "signIn..................................................");
         if (!validateForm()) {
             return;
         }
@@ -341,15 +328,14 @@ public class LoginActivity extends BaseActivity implements  View.OnClickListener
             signIn();
         } else if (i == R.id.button_sign_up) {
             signUp();
-        }else if (i == R.id.twitter_login_button){
+        } else if (i == R.id.twitter_login_button) {
             socialFlag = "Twitter";
-            Log.d(TAG,"Precess Twitter Login button");
+            Log.d(TAG, "Precess Twitter Login button");
         }
-
-
     }
+
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         hideProgressDialog();
     }
