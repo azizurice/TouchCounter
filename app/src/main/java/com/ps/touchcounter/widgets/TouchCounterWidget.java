@@ -4,11 +4,13 @@ import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.text.format.DateFormat;
 import android.widget.RemoteViews;
 
 import com.ps.touchcounter.R;
+import com.ps.touchcounter.services.UpdateActivityService;
 
 import java.util.Calendar;
 
@@ -17,6 +19,13 @@ import java.util.Calendar;
  * Implementation of App Widget functionality.
  */
 public class TouchCounterWidget extends AppWidgetProvider {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        String msgTouchRate = "WakeUpAtUserPresence";
+        Intent msgIntent = new Intent(context, UpdateActivityService.class);
+        msgIntent.putExtra(UpdateActivityService.PARAM_IN_MSG, msgTouchRate);
+        context.startService(msgIntent);
+    }
 
     public static final class AppWidgetService extends IntentService {
         private static final String TAG = AppWidgetService.class.getSimpleName();
@@ -27,6 +36,7 @@ public class TouchCounterWidget extends AppWidgetProvider {
         public AppWidgetService() {
             super("UpdateActivityService");
         }
+
 
         @Override
         public void onCreate() {
