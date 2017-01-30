@@ -46,4 +46,20 @@ Home Widget:
 
 
 
-- Project Structure
+- Archiectecture
+
+
+The app can be refactored based on MVP(Model View Presention) design pattern in its presentation layer. The architecture patten like "CLEAN" architecture and/or layered
+ architecture can be considered a good choice for a bigger app.
+
+
+ ### Help Line:
+
+ You can download the APK file from [here](https://drive.google.com/drive/u/0/folders/0B-SrBva2FSA9QVdaWmdHQlUzWWc). Install it and play with
+ this nice app and see the Home widget.
+
+ N.B: In home widget, I have added two extra things one is time and counter for providing an impression of how it looks like if it is updated 100ms and/or 1 minute.
+
+ Finally, if you feel any problem to install and run this app,  please feel free to contact at azizur.ice@gmail.com. Any comments would be greatly appreciated. Thank you.
+
+
