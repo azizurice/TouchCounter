@@ -40,9 +40,8 @@ import io.fabric.sdk.android.Fabric;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = LoginActivity.class.getSimpleName();
-    private static final int RC_SIGN_IN = 9001;
 
-    // Authentication with firebase backend services
+       // Authentication with firebase backend services
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
