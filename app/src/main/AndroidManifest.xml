@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ps.touchcounter">
+
+    <!-- Permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activities.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.TouchCountActivity" />
+
+        <service
+            android:name=".services.UpdateActivityService"
+            android:exported="false" />
+
+        <receiver
+            android:name=".widgets.TouchCounterWidget"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/touch_counter_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".widgets.TouchCounterWidget$AppWidgetService"
+            android:exported="false">
+            <!--
+            <intent-filter>
+                <action android:name="com.ps.touchcounter.widgets.action.UPDATE_TOUCH_RATE"/>
+            </intent-filter>
+            -->
+        </service>
+    </application>
+
+</manifest>
