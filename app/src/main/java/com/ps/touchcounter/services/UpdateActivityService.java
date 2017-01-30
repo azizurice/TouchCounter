@@ -45,9 +45,9 @@ public class UpdateActivityService extends IntentService {
                 sendBroadcast(broadcastIntent);
 
 
-//                Intent intent1=new Intent(this,TouchCounterWidget.AppWidgetService.class);
-//                intent1.putExtra(TouchCounterWidget.AppWidgetService.UPDATE_TOUCH_RATE,resultTxt);
-//                startService(intent1);
+                Intent intent1=new Intent(this,TouchCounterWidget.AppWidgetService.class);
+                intent1.putExtra(TouchCounterWidget.AppWidgetService.UPDATE_TOUCH_RATE,resultTxt);
+                startService(intent1);
             }
         }
 
