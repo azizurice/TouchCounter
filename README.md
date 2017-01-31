@@ -63,3 +63,13 @@ The app can be refactored based on MVP(Model View Presention) design pattern in 
  Finally, if you feel any problem to install and run this app,  please feel free to contact at azizur.ice@gmail.com. Any comments would be greatly appreciated. Thank you.
 
 
+### Important Note: 
+ Why I didn't use 
+ AlarmManager - Though AlarmManager is intended for cases where app code runs in a specific time (a good option to generate pending intent at a specific interval), I didn't user it.  The reason is: it could not dispatch a call in every 100ms second interval(which was a requirement of our app). The default minimum interval is 60000ms. So I had to reject it.
+ 
+ Handler- This class could use after dispatching wake up call by AlarmManager. However, its run method's code runs in UI thread; which again is not good idea as it will block user experience. For Similar reasons, I didn't use Service.
+ 
+ Thereafter, I have used 100ms thread sleep in background thread and calculates number of touches at every interval and stores in the fixed sized map, send update from IntentService. Moreover, whenever app turns on screen or user_presence, it will receive an wakeup call which in turn starts the intent service and the process will go on.
+ 
+ 
+ 
