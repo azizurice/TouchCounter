@@ -19,7 +19,7 @@ public class UpdateActivityService extends IntentService {
     public static final String PARAM_IN_MSG = "in_msg";
     public static final String PARAM_OUT_MSG = "out_msg";
     private long key = 1;
-    static String touchesPerSecond;
+    static String touchesPerSecond="0";
 
     // Build a circular queue where only 10 elements can be there. whenever new elements pushes,
     // the oldest elements will removed.

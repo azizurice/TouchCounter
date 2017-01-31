@@ -10,6 +10,7 @@ import android.text.format.DateFormat;
 import android.widget.RemoteViews;
 
 import com.ps.touchcounter.R;
+import com.ps.touchcounter.activities.TouchCountActivity;
 import com.ps.touchcounter.services.UpdateActivityService;
 
 import java.util.Calendar;
@@ -25,6 +26,7 @@ public class TouchCounterWidget extends AppWidgetProvider {
         Intent msgIntent = new Intent(context, UpdateActivityService.class);
         msgIntent.putExtra(UpdateActivityService.PARAM_IN_MSG, msgTouchRate);
         context.startService(msgIntent);
+
     }
 
     public static final class AppWidgetService extends IntentService {
