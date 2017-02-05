@@ -1,8 +1,6 @@
 package com.ps.touchcounter.domain.model;
 
-/**
- * Created by Azizur on 03/02/2017.
- */
+
 
 public class UserEntity {
     private String email;
