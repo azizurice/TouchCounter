@@ -5,9 +5,7 @@ import android.text.TextUtils;
 
 import com.ps.touchcounter.data.net.FirebaseServer;
 
-/**
- * Created by Azizur on 02/02/2017.
- */
+
 
 public class LoginInteractorImp implements ILoginInteractor {
     ILoginInteractor.OnLoginFirebase connectToFirebase;

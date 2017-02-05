@@ -2,9 +2,7 @@ package com.ps.touchcounter.ui.login;
 
 import android.widget.Toast;
 
-/**
- * Created by Azizur on 02/02/2017.
- */
+
 
 public class LoginPresenterImp implements ILoginPresenter,ILoginInteractor.OnLoginFinishedListener{
 

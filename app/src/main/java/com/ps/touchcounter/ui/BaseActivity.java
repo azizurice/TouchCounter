@@ -4,9 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-/**
- * Created by Azizur on 02/02/2017.
- */
+
 
 public class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
