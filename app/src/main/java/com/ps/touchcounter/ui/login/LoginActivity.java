@@ -136,7 +136,6 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
         //init
         loginPresenter = new LoginPresenterImp(this);
-        //loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
     }
 
 
@@ -174,7 +173,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
         switch (v.getId()) {
             case R.id.button_sign_in:
-              //  loginPresenter.validateCredentialsAndSignIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
+                //  loginPresenter.validateCredentialsAndSignIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
                 signIn();
                 break;
             case R.id.button_sign_up:
@@ -229,7 +228,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-            Log.d(TAG, " User Name : " + user.getDisplayName()+ " and User Id : " + user.getUid());
+            Log.d(TAG, " User Name : " + user.getDisplayName() + " and User Id : " + user.getUid());
             Intent intent = new Intent(this, TouchCounterActivity.class);
             startActivity(intent);
         } else {

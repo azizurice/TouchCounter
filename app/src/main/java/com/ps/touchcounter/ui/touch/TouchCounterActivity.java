@@ -66,10 +66,7 @@ public class TouchCounterActivity extends BaseActivity implements ITouchView {
         return nTouch;
     }
 
-    @Override
-    public void showMessage(String message) {
 
-    }
 
     @Override
     public void showTouchesInRange(int touches) {

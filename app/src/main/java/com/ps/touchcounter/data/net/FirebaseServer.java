@@ -1,5 +1,9 @@
 package com.ps.touchcounter.data.net;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -9,14 +13,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.ps.touchcounter.R;
 import com.ps.touchcounter.domain.model.User;
 import com.ps.touchcounter.ui.login.ILoginInteractor;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Azizur on 04/02/2017.
  */
 
-public class FirebaseServer implements ILoginInteractor.OnLoginFirebase {
+public class FirebaseServer extends Activity implements ILoginInteractor.OnLoginFirebase {
     private static FirebaseServer instance=null;
 
     // Authentication with firebase backend services
@@ -41,7 +50,11 @@ public class FirebaseServer implements ILoginInteractor.OnLoginFirebase {
     public void setFirebaseParameters(){
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-      //  Resources.getSystem().getString(android.R.string.somecommonstuff);
+      //  Resources.getSystem().getString(android.R.string.);
+        // 1. Twitter Auth setting
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(Resources.getSystem().getString(R.string.twitter_consumer_key),
+                Resources.getSystem().getString(R.string.twitter_consumer_secret));
+        Fabric.with(this, new Twitter(authConfig));
 
     }
 
