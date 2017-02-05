@@ -9,7 +9,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="16dp"
-        tools:context="com.ps.touchcounter.activities.LoginActivity">
+        tools:context="com.ps.touchcounter.ui.login.LoginActivity">
 
         <!-- Login progress -->
         <ProgressBar
