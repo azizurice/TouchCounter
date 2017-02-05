@@ -11,7 +11,8 @@ import android.text.format.DateFormat;
 import android.widget.RemoteViews;
 
 import com.ps.touchcounter.R;
-import com.ps.touchcounter.services.UpdateActivityService;
+import com.ps.touchcounter.device.services.UpdateService;
+
 
 import java.util.Calendar;
 
@@ -23,20 +24,20 @@ public class TouchCounterWidget extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         String msgTouchRate = "WakeUpAtUserPresence";
-        Intent msgIntent = new Intent(context, UpdateActivityService.class);
-        msgIntent.putExtra(UpdateActivityService.PARAM_IN_MSG, msgTouchRate);
+        Intent msgIntent = new Intent(context, UpdateService.class);
+        msgIntent.putExtra(UpdateService.PARAM_IN_MSG, msgTouchRate);
         context.startService(msgIntent);
 
     }
 
     public static final class AppWidgetService extends IntentService {
         private static final String TAG = AppWidgetService.class.getSimpleName();
-        public static final String UPDATE_TOUCH_RATE = "com.ps.touchcounter.widgets.action.UPDATE_TOUCH_RATE";
+        public static final String UPDATE_TOUCH_RATE = "com.ps.touchcounter.device.widget.action.UPDATE_TOUCH_RATE";
         static int counter = 1;
         private Calendar mCalendar;
 
         public AppWidgetService() {
-            super("UpdateActivityService");
+            super("UpdateService");
         }
 
 
