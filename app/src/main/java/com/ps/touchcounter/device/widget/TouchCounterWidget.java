@@ -1,4 +1,5 @@
-package com.ps.touchcounter.widgets;
+
+package com.ps.touchcounter.device.widget;
 
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
@@ -10,7 +11,6 @@ import android.text.format.DateFormat;
 import android.widget.RemoteViews;
 
 import com.ps.touchcounter.R;
-import com.ps.touchcounter.activities.TouchCountActivity;
 import com.ps.touchcounter.services.UpdateActivityService;
 
 import java.util.Calendar;

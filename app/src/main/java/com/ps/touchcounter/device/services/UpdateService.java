@@ -1,25 +1,26 @@
-package com.ps.touchcounter.services;
+package com.ps.touchcounter.device.services;
 
 import android.app.ActivityManager;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.SystemClock;
 
-import com.ps.touchcounter.activities.TouchCountActivity;
-import com.ps.touchcounter.widgets.TouchCounterWidget;
+
+import com.ps.touchcounter.device.widget.TouchCounterWidget;
+import com.ps.touchcounter.ui.touch.TouchCounterActivity;
+
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UpdateActivityService extends IntentService {
+public class UpdateService extends IntentService {
 
     public static final String PARAM_IN_MSG = "in_msg";
     public static final String PARAM_OUT_MSG = "out_msg";
     private long key = 1;
-    static String touchesPerSecond="0";
+    int touchesPerSecond;
 
     // Build a circular queue where only 10 elements can be there. whenever new elements pushes,
     // the oldest elements will removed.
@@ -32,8 +33,8 @@ public class UpdateActivityService extends IntentService {
         }
     };
 
-    public UpdateActivityService() {
-        super("UpdateActivityService");
+    public UpdateService() {
+        super("UpdateService");
     }
 
 
@@ -46,9 +47,9 @@ public class UpdateActivityService extends IntentService {
                 // it will have 10 entries which fill ups the circular queue.
 
                 SystemClock.sleep(100); // 100 milliseconds
-                if (isActivityRunning(TouchCountActivity.class) && !msg.equalsIgnoreCase("WakeUpAtUserPresence")) {
-                    touchesInIntervals.put(key++, TouchCountActivity.updateTouch(-1));
-                    TouchCountActivity.updateTouch(0);
+                if (isActivityRunning(TouchCounterActivity.class) && !msg.equalsIgnoreCase("WakeUpAtUserPresence")) {
+                    touchesInIntervals.put(key++, TouchCounterActivity.updateTouch(-1));
+                    TouchCounterActivity.updateTouch(0);
                     int sum = 0;
 
                     // the Sum of the circular queue always gives touche rate per second.
@@ -56,12 +57,12 @@ public class UpdateActivityService extends IntentService {
                         sum = sum + (int) entry.getValue();
                     }
 
-                    touchesPerSecond = String.valueOf(sum);
+                    touchesPerSecond = sum;
 
                     Intent broadcastIntent = new Intent();
-                    broadcastIntent.setAction(TouchCountActivity.ResponseReceiver.ACTION_RESP);
+                    broadcastIntent.setAction(TouchCounterActivity.ResponseReceiver.ACTION_RESP);
                     broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
-                    broadcastIntent.putExtra(PARAM_OUT_MSG, touchesPerSecond);
+                    broadcastIntent.putExtra(PARAM_OUT_MSG, String.valueOf(touchesPerSecond));
                     sendBroadcast(broadcastIntent);
                 } else if (msg.equalsIgnoreCase("WakeUpAtUserPresence")) {
                     msg = "Touch Rate per second :";
