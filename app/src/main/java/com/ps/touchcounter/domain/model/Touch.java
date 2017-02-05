@@ -1,7 +1,7 @@
 package com.ps.touchcounter.domain.model;
 
 
-
+// For this app, we can ignore it. we don't have so many business rule here.
 public class Touch implements ITouch{
     int touchesInRange;
     int touchRatePerSecond;
@@ -17,12 +17,12 @@ public class Touch implements ITouch{
 
     @Override
     public int getTouchesInRange() {
-        return 0;
+        return touchesInRange;
     }
 
     @Override
     public int getTouchRatePerSecond() {
-        return 0;
+        return touchRatePerSecond;
     }
 
     public void setTouchesInRange(int touchesInRange) {

@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.SystemClock;
 
 
-import com.ps.touchcounter.device.widget.TouchCounterWidget;
+import com.ps.touchcounter.domain.iteractor.NotifyWidget;
 import com.ps.touchcounter.ui.touch.TouchCounterActivity;
 
 
@@ -69,8 +69,8 @@ public class UpdateService extends IntentService {
                 }
 
                 // Send update msg at every 100 ms
-                Intent widgetIntent = new Intent(this, TouchCounterWidget.AppWidgetService.class);
-                widgetIntent.putExtra(TouchCounterWidget.AppWidgetService.UPDATE_TOUCH_RATE, msg + " " + touchesPerSecond);
+                Intent widgetIntent = new Intent(this, NotifyWidget.AppWidgetService.class);
+                widgetIntent.putExtra(NotifyWidget.AppWidgetService.UPDATE_TOUCH_RATE, msg + " " + touchesPerSecond);
                 startService(widgetIntent);
             }
         }

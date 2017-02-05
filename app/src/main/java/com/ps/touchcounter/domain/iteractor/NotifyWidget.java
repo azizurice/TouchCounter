@@ -1,5 +1,5 @@
 
-package com.ps.touchcounter.device.widget;
+package com.ps.touchcounter.domain.iteractor;
 
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
@@ -12,6 +12,8 @@ import android.widget.RemoteViews;
 
 import com.ps.touchcounter.R;
 import com.ps.touchcounter.device.services.UpdateService;
+import com.ps.touchcounter.device.widget.WidgetNotifierImp;
+import com.ps.touchcounter.domain.repository.IWidgetNotifier;
 
 
 import java.util.Calendar;
@@ -20,7 +22,7 @@ import java.util.Calendar;
 /**
  * Implementation of App Widget functionality.
  */
-public class TouchCounterWidget extends AppWidgetProvider {
+public class NotifyWidget extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         String msgTouchRate = "WakeUpAtUserPresence";
@@ -32,12 +34,13 @@ public class TouchCounterWidget extends AppWidgetProvider {
 
     public static final class AppWidgetService extends IntentService {
         private static final String TAG = AppWidgetService.class.getSimpleName();
-        public static final String UPDATE_TOUCH_RATE = "com.ps.touchcounter.device.widget.action.UPDATE_TOUCH_RATE";
+        public static final String UPDATE_TOUCH_RATE = "com.ps.touchcounter.domain.iteractor.action.UPDATE_TOUCH_RATE";
         static int counter = 1;
         private Calendar mCalendar;
-
+        IWidgetNotifier iWidgetNotifier;
         public AppWidgetService() {
             super("UpdateService");
+            iWidgetNotifier=new WidgetNotifierImp();
         }
 
 
@@ -57,20 +60,13 @@ public class TouchCounterWidget extends AppWidgetProvider {
             updateTouchRate(intent.getStringExtra(UPDATE_TOUCH_RATE));
         }
 
-
         private void updateTouchRate(String touchesPerSecond) {
             mCalendar.setTimeInMillis(System.currentTimeMillis());
             counter = counter + 1;
             if (counter > 500000) counter = 0;
 
-            RemoteViews mRemoteViews = new RemoteViews(getPackageName(), R.layout.touch_counter_widget);
-            mRemoteViews.setTextViewText(R.id.timeId,
-                    DateFormat.format(getString(R.string.time_format), mCalendar));
-            mRemoteViews.setTextViewText(R.id.appwidget_text, touchesPerSecond + " Test Counter : " + counter);
+            iWidgetNotifier.updateWidget(this,touchesPerSecond,counter,mCalendar);
 
-            ComponentName mComponentName = new ComponentName(this, TouchCounterWidget.class);
-            AppWidgetManager mAppWidgetManager = AppWidgetManager.getInstance(this);
-            mAppWidgetManager.updateAppWidget(mComponentName, mRemoteViews);
         }
     }
 }

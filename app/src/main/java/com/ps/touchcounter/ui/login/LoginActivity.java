@@ -86,46 +86,19 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
         mSignUpButton = (Button) findViewById(R.id.button_sign_up);
         mTwitterButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
 
+        initializeFirebase();
+        initializeTwitterConfig();
 
-        // 1. Twitter Auth setting
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(
-                getString(R.string.twitter_consumer_key),
-                getString(R.string.twitter_consumer_secret));
-        Fabric.with(this, new Twitter(authConfig));
-
-        // 2. Initialize Auth and Database instance
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // 3. Start auth_state_listener for Twitter
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                if (firebaseUser != null) {
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + firebaseUser.getUid());
-                } else {
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                updateUI(firebaseUser);
-            }
-        };
-
-
-        // Click listeners
         mSignInButton.setOnClickListener(this);
         mSignUpButton.setOnClickListener(this);
         mTwitterButton.setOnClickListener(this);
 
-
-        //set callback for Twitter button
         mTwitterButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
                 Log.d(TAG, "twitterLogin:success" + result);
                 handleTwitterSession(result.data);
             }
-
             @Override
             public void failure(TwitterException exception) {
                 Log.w(TAG, "twitterLogin:failure", exception);
@@ -133,10 +106,10 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
             }
         });
 
-
-        //init
         loginPresenter = new LoginPresenterImp(this);
     }
+
+
 
 
     @Override
@@ -161,7 +134,6 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, " Result has come back");
         if (socialFlag.equalsIgnoreCase("Twitter")) {
             Log.d(TAG, " Result has come back :" + socialFlag);
             mTwitterButton.onActivityResult(requestCode, resultCode, data);
@@ -374,4 +346,31 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
         }
     }
+
+
+    private void initializeTwitterConfig() {
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(
+                getString(R.string.twitter_consumer_key),
+                getString(R.string.twitter_consumer_secret));
+        Fabric.with(this, new Twitter(authConfig));
+    }
+
+    private void initializeFirebase() {
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser != null) {
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + firebaseUser.getUid());
+                } else {
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                updateUI(firebaseUser);
+            }
+        };
+    }
+
+
 }

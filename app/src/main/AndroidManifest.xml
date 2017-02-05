@@ -28,7 +28,7 @@
 
         <receiver
 
-            android:name=".device.widget.TouchCounterWidget"
+            android:name=".domain.iteractor.NotifyWidget"
             android:process=":remote" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -43,7 +43,7 @@
         </receiver>
 
         <service
-            android:name=".device.widget.TouchCounterWidget$AppWidgetService"
+            android:name=".domain.iteractor.NotifyWidget$AppWidgetService"
             android:exported="false">
         </service>
     </application>
