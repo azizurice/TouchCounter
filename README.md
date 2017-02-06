@@ -24,7 +24,14 @@ To develop this app, I have used the following components:
 
 ### Project Structure in Android Studio
 
+General Project Structure
+
 <img src="https://github.com/azizurice/TouchCounter/blob/master/docs/ProjectStructure.png" />
+
+Clean Project Structure
+
+<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/ProjectStructureNew.png" />
+
 
 
 ### Few Screen Shots
