@@ -2,19 +2,13 @@
 package com.ps.touchcounter.domain.iteractor;
 
 import android.app.IntentService;
-import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.text.format.DateFormat;
-import android.widget.RemoteViews;
 
-import com.ps.touchcounter.R;
 import com.ps.touchcounter.device.services.UpdateService;
 import com.ps.touchcounter.device.widget.WidgetNotifierImp;
 import com.ps.touchcounter.domain.repository.IWidgetNotifier;
-
 
 import java.util.Calendar;
 
