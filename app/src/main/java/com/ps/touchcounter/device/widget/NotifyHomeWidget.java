@@ -16,9 +16,9 @@ import java.util.Calendar;
  * Created by Azizur on 05/02/2017.
  */
 
-public class WidgetNotifierImp implements IWidgetNotifier {
+public class NotifyHomeWidget implements IWidgetNotifier {
     @Override
-    public void updateWidget(Context context,String msgWithTouchRate, int counter, Calendar calendar) {
+    public void updateWidget(Context context, String msgWithTouchRate, int counter, Calendar calendar) {
         RemoteViews mRemoteViews = new RemoteViews(context.getPackageName(), R.layout.touch_counter_widget);
         mRemoteViews.setTextViewText(R.id.timeId,
                 DateFormat.format(context.getString(R.string.time_format), calendar));

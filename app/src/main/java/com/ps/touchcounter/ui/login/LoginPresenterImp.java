@@ -1,10 +1,6 @@
 package com.ps.touchcounter.ui.login;
 
-import android.widget.Toast;
-
-
-
-public class LoginPresenterImp implements ILoginPresenter,ILoginInteractor.OnLoginFinishedListener{
+public class LoginPresenterImp implements ILoginPresenter, ILoginInteractor.OnLoginFinishedListener {
 
     private ILoginView loginView;
     private ILoginInteractor loginInteractor;
@@ -33,7 +29,6 @@ public class LoginPresenterImp implements ILoginPresenter,ILoginInteractor.OnLog
     }
 
 
-
     @Override
     public void onDestroy() {
         loginView = null;
@@ -59,8 +54,8 @@ public class LoginPresenterImp implements ILoginPresenter,ILoginInteractor.OnLog
     public void onSuccess(boolean result) {
         if (loginView != null) {
             loginView.onHideProgress();
-            loginView.onLoginResult(result,0);
-          //  loginView.navigateToHome();
+            loginView.onLoginResult(result, 0);
+
         }
 
     }

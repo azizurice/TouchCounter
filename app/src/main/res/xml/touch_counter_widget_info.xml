@@ -8,8 +8,4 @@
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"></appwidget-provider>
 
-<!--
-    android:minHeight="110dp"
-    android:minWidth="180dp"
-    3*2
-    -->
+

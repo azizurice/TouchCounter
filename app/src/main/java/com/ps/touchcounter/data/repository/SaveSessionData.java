@@ -2,40 +2,39 @@ package com.ps.touchcounter.data.repository;
 
 import android.content.SharedPreferences;
 
-import com.ps.touchcounter.domain.model.UserEntity;
-import com.ps.touchcounter.domain.repository.SessionRepository;
+import com.ps.touchcounter.domain.model.User;
+import com.ps.touchcounter.domain.repository.ISessionData;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-/**
- * Created by Azizur on 04/02/2017.
- */
 
+// We ignore it here as Firebase automatically persists the token (for this project). However, if any other server,
+// we need it for saving token. That's why I have added here.
 @Singleton
-public class SessionDataRepository implements SessionRepository {
+public class SaveSessionData implements ISessionData {
     private static final String EMAIL = "email";
-    private static final String AUTH_TOKEN = "auth_token";
+    private static final String AUTH_TOKEN = "authorization_token";
 
     private final SharedPreferences sharedPreferences;
 
     @Inject
-    public SessionDataRepository(SharedPreferences sharedPreferences) {
+    public SaveSessionData(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }
 
     @Override
-    public UserEntity getCurrentUser() {
+    public User getCurrentUser() {
         if (sharedPreferences.contains(EMAIL) && sharedPreferences.contains(AUTH_TOKEN)) {
-            UserEntity user = new UserEntity(sharedPreferences.getString(EMAIL, null));
+            User user = new User(sharedPreferences.getString(EMAIL, null));
             user.setAuthToken(sharedPreferences.getString(AUTH_TOKEN, null));
             return user;
         }
-        return new UserEntity();
+        return new User();
     }
 
     @Override
-    public void setCurrentUser(UserEntity user) {
+    public void setCurrentUser(User user) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(EMAIL, user.getEmail());
         editor.putString(AUTH_TOKEN, user.getAuthToken());

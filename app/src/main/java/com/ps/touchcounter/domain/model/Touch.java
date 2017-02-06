@@ -1,12 +1,14 @@
 package com.ps.touchcounter.domain.model;
 
 
-// For this app, we can ignore it. we don't have so many business rule here.
-public class Touch implements ITouch{
+// For bigger project, defining model in this way and making use of it is better.
+// as we don't have that many business rule, I have just used Interactor. However, I have kept it
+// for having a reference for future project.
+public class Touch implements ITouch {
     int touchesInRange;
     int touchRatePerSecond;
 
-    public Touch(){
+    public Touch() {
 
     }
 

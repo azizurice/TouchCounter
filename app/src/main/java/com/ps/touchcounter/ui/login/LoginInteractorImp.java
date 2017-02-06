@@ -1,17 +1,15 @@
 package com.ps.touchcounter.ui.login;
 
-import android.os.Handler;
 import android.text.TextUtils;
 
-import com.ps.touchcounter.data.net.FirebaseServer;
-
+import com.ps.touchcounter.data.net.ConnectToFirebase;
 
 
 public class LoginInteractorImp implements ILoginInteractor {
     ILoginInteractor.OnLoginFirebase connectToFirebase;
 
     public LoginInteractorImp() {
-        connectToFirebase = FirebaseServer.getInstance();
+        connectToFirebase = ConnectToFirebase.getInstance();
     }
 
     @Override
@@ -29,36 +27,13 @@ public class LoginInteractorImp implements ILoginInteractor {
             return;
         }
         if (!error) {
-            if (connectToFirebase.signUp(email, password)) {
+            if (connectToFirebase.signIn(email, password)) {
                 listener.onSuccess(true);
-            }else{
+            } else {
                 listener.onSuccess(false);
             }
 
         }
-
-
-//        // Mock login. I'm creating a handler to delay the answer a couple of seconds
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                boolean error = false;
-//                if (TextUtils.isEmpty(email)) {
-//                    listener.onEmailError();
-//                    error = true;
-//                    return;
-//                }
-//                if (TextUtils.isEmpty(password)) {
-//                    listener.onPasswordError();
-//                    error = true;
-//                    return;
-//                }
-//                if (!error) {
-//                    listener.onSuccess();
-//                }
-//            }
-//        }, 2000);
-
     }
 
 

@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.ps.touchcounter.device.services.UpdateService;
-import com.ps.touchcounter.device.widget.WidgetNotifierImp;
+import com.ps.touchcounter.device.widget.NotifyHomeWidget;
 import com.ps.touchcounter.domain.repository.IWidgetNotifier;
 
 import java.util.Calendar;
@@ -32,9 +32,10 @@ public class NotifyWidget extends AppWidgetProvider {
         static int counter = 1;
         private Calendar mCalendar;
         IWidgetNotifier iWidgetNotifier;
+
         public AppWidgetService() {
             super("UpdateService");
-            iWidgetNotifier=new WidgetNotifierImp();
+            iWidgetNotifier = new NotifyHomeWidget();
         }
 
 
@@ -59,7 +60,7 @@ public class NotifyWidget extends AppWidgetProvider {
             counter = counter + 1;
             if (counter > 500000) counter = 0;
 
-            iWidgetNotifier.updateWidget(this,touchesPerSecond,counter,mCalendar);
+            iWidgetNotifier.updateWidget(this, touchesPerSecond, counter, mCalendar);
 
         }
     }

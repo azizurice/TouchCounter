@@ -5,7 +5,8 @@ public class Widget implements IWidget {
     String touchRate;
     String counter;
     String time;
-    public  Widget(){
+
+    public Widget() {
 
     }
 

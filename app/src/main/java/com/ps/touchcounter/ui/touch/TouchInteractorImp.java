@@ -2,6 +2,6 @@ package com.ps.touchcounter.ui.touch;
 
 
 
-public class TouchInteractorImp {
+public class TouchInteractorImp implements ITouchInteractor {
 
 }
