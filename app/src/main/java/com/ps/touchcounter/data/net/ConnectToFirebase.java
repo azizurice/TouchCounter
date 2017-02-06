@@ -5,8 +5,9 @@ import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.ps.touchcounter.TCApp;
+import com.google.firebase.database.DatabaseReference;
 import com.ps.touchcounter.domain.TouchCounterLog;
 import com.ps.touchcounter.domain.model.User;
 import com.ps.touchcounter.ui.login.ILoginInteractor;
@@ -18,6 +19,9 @@ public class ConnectToFirebase implements ILoginInteractor.OnLoginFirebase {
 
     private static final String TAG = TouchCounterLog.buildLogTag(LoginActivity.class.getSimpleName());
     private static ConnectToFirebase instance = null;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mDatabase;
 
 
     private boolean loginSucess = false;
@@ -40,7 +44,7 @@ public class ConnectToFirebase implements ILoginInteractor.OnLoginFirebase {
     public boolean signIn(String email, String password) {
         loginSucess = false;
 
-        TCApp.mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -61,7 +65,7 @@ public class ConnectToFirebase implements ILoginInteractor.OnLoginFirebase {
     @Override
     public boolean signUp(String email, String password) {
         signUpSuccess = false;
-        TCApp.mAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -102,7 +106,7 @@ public class ConnectToFirebase implements ILoginInteractor.OnLoginFirebase {
     // write to the firebase database
     private void writeNewUser(String userId, String name, String email) {
         User user = new User(name, email);
-        TCApp.mDatabase.child("users").child(userId).setValue(user);
+        mDatabase.child("users").child(userId).setValue(user);
     }
 
 

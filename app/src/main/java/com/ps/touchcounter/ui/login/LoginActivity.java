@@ -20,8 +20,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.TwitterAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ps.touchcounter.R;
-import com.ps.touchcounter.TCApp;
 import com.ps.touchcounter.domain.TouchCounterLog;
 import com.ps.touchcounter.domain.model.User;
 import com.ps.touchcounter.ui.BaseActivity;
@@ -37,6 +38,10 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 public class LoginActivity extends BaseActivity implements ILoginView, View.OnClickListener {
     private static final String TAG = TouchCounterLog.buildLogTag(LoginActivity.class.getSimpleName());
 
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mDatabase;
     // Custom user login
     private EditText mEmailField;
     private EditText mPasswordField;
@@ -91,9 +96,9 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     @Override
     public void onStart() {
         super.onStart();
-        TCApp.mAuth.addAuthStateListener(TCApp.mAuthListener);
-        if (TCApp.mAuth.getCurrentUser() != null) {
-            onAuthSuccess(TCApp.mAuth.getCurrentUser());
+        mAuth.addAuthStateListener(mAuthListener);
+        if (mAuth.getCurrentUser() != null) {
+            onAuthSuccess(mAuth.getCurrentUser());
         }
     }
 
@@ -101,8 +106,8 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     @Override
     public void onStop() {
         super.onStop();
-        if (TCApp.mAuthListener != null) {
-            TCApp.mAuth.removeAuthStateListener(TCApp.mAuthListener);
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
         }
     }
 
@@ -144,7 +149,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
                 session.getAuthToken().token,
                 session.getAuthToken().secret);
 
-        TCApp.mAuth.signInWithCredential(credential)
+        mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -167,7 +172,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
 
     private void signOutTwitter() {
-        TCApp.mAuth.signOut();
+        mAuth.signOut();
         Twitter.logOut();
         updateUI(null);
     }
@@ -194,7 +199,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
 
-        TCApp.mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -221,7 +226,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
 
-        TCApp.mAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -275,7 +280,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     // write to the firebase database
     private void writeNewUser(String userId, String name, String email) {
         User user = new User(name, email);
-        TCApp.mDatabase.child("users").child(userId).setValue(user);
+        mDatabase.child("users").child(userId).setValue(user);
     }
 
     @Override
@@ -318,7 +323,9 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
 
     private void setFirebaseAuthListener() {
-        TCApp.mAuthListener = new FirebaseAuth.AuthStateListener() {
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
