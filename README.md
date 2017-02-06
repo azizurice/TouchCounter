@@ -24,13 +24,17 @@ To develop this app, I have used the following components:
 
 ### Project Structure in Android Studio
 
-General Project Structure
+Clean Project Structure (the current one)
+
+<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/ProjectStructureNew.png" />
+
+
+
+General Project Structure (obsolete now)
 
 <img src="https://github.com/azizurice/TouchCounter/blob/master/docs/ProjectStructure.png" />
 
-Clean Project Structure
 
-<img src="https://github.com/azizurice/TouchCounter/blob/master/docs/ProjectStructureNew.png" />
 
 
 
